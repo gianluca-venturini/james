@@ -5,11 +5,13 @@ const canvas = document.getElementById('canvas_e');
 
 simulate();
 
+const tau = 0.1;
+
 async function simulate() {
     let t = 0;
     while(true) {
-        const eX = Array.from({ length: canvas.width }, (_, index) => Math.sin(index * 2 * Math.PI / canvas.width + t));
-        t += Math.PI / 100;
+        const eX = Array.from({ length: canvas.width }, (_, index) => Math.exp(-Math.pow(((index * 0.01 - t) + 0.2) / tau, 2)));
+        t += 0.005;
         draw(canvas, eX);
         await wait(1);
     }
