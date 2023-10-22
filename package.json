@@ -1,0 +1,13 @@
+{
+  "name": "james",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "esbuild src/index.js --bundle --outfile=dist/index.js --loader:.html=text",
+    "serve": "esbuild src/index.js --outdir=www/dist --bundle --serve=9000 --servedir=www --watch"
+  },
+  "dependencies": {
+    "esbuild": "^0.19.5"
+  }
+}
