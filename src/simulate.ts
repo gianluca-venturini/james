@@ -10,7 +10,11 @@ function pulse(t: number, tau: number, t0: number) {
     return Math.exp(-Math.pow((t - t0) / tau, 2));
 }
 
-export async function simulate(canvasElement: HTMLCanvasElement, timeElement: HTMLDivElement) {
+export async function simulate(canvasEElement: HTMLCanvasElement, canvasHElement: HTMLCanvasElement, timeElement: HTMLDivElement) {
+    if (canvasEElement.width !== canvasHElement.width || canvasEElement.width !== N) {
+        throw new Error('The canvas should have the same width of N');
+    }
+
     const fMax = 1_000; // max frequency [Hz]
     const lambdaMin = C0 / fMax; // min wavelenght [m]
     const deltaZ = lambdaMin / N / 100;
@@ -58,7 +62,8 @@ export async function simulate(canvasElement: HTMLCanvasElement, timeElement: HT
     for (let i = 0; i < NUM_STEPS; i++) {
         step();
 
-        draw(canvasElement, eY);
+        draw(canvasEElement, eY, 1, 'red');
+        draw(canvasHElement, hX, 2 * 1e-3, 'blue');
         timeElement.innerText = t.toString();
         await wait(10);
 
